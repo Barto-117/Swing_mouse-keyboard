@@ -13,6 +13,6 @@ public class Square extends JPanel {
         Graphics2D g2d = (Graphics2D) g;
         Rectangle2D rectangle = new Rectangle2D.Double(MyApp.pos.getX(), MyApp.pos.getY(), 30, 30);
         g2d.draw(rectangle);
-
+        repaint();
     }
 }

@@ -13,6 +13,7 @@ public class Oval extends JPanel {
         Graphics2D g2d = (Graphics2D) g;
         Ellipse2D circle = new Ellipse2D.Double(MyApp.pos.getX(), MyApp.pos.getY(), 30, 30);
         g2d.draw(circle);
+        repaint();
     }
 }
 

@@ -41,7 +41,7 @@ public class MyApp extends JFrame {
                 if (m == 107) {
                     System.out.println("k");
                     Square s = new Square();
-                    s.paintComponent(getGraphics());
+                    p.add(s);
                 }
             }
 
@@ -65,8 +65,11 @@ public class MyApp extends JFrame {
                 Point x = getMousePosition();
                 if (x.getX() > bRun.getX() + 50) {
                     super.mouseEntered(e);
+                    bRun.setBackground(Color.GREEN);
                     bRun.setLocation((int) (20 + Math.random() * 1400), (int) (20 + Math.random() * 710));
+                    return;
                 }
+                bRun.setBackground(Color.RED);
             }
         });
 
