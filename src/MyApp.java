@@ -4,61 +4,42 @@ import java.awt.event.*;
 
 public class MyApp extends JFrame {
     JButton bRun, bCancel;
-    JPanel p;
-    static Point pos = new Point(-100,-100);
+
+    Kanwa k;
+    int x;
+    int y;
+
 
     public MyApp() {
+
 
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setTitle("Swing");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
-        setLayout(null);
+        setResizable(false);
         setLocationRelativeTo(null);
-        addMouseListener(new MouseAdapter() {
+
+        setFocusable(true);
+
+        k = new Kanwa();
+        k.setOpaque(true);
+        k.setBackground(Color.cyan);
+        add(k);
+
+        k.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                pos.x = e.getX();
-                pos.y = e.getY();
-                System.out.println(pos.getX() + "," + pos.getY());
-            }
-        });
-
-        p = new JPanel(null);
-        p.setOpaque(true);
-        add(p);
-
-        p.setFocusable(true);
-        p.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                char m = e.getKeyChar();
-                if (m == 111) {
-                    System.out.println("o");
-                    Oval o = new Oval();
-                    o.paintComponent(getGraphics());
-                }
-                if (m == 107) {
-                    System.out.println("k");
-                    Square s = new Square();
-                    p.add(s);
-                }
-            }
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-
+                x = e.getX();
+                y = e.getY();
+                System.out.println(x + "," + y);
             }
         });
 
         bRun = new JButton("RUN");
-        add(bRun);
-        bRun.setBounds(600, 710, 100, 50);
+        k.add(bRun);
+        bRun.setBackground(Color.white);
+        bRun.setBounds(610, 710, 100, 50);
         bRun.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -74,13 +55,30 @@ public class MyApp extends JFrame {
         });
 
         bCancel = new JButton("Cancel");
-        add(bCancel);
+        k.add(bCancel);
+        bCancel.setBackground(Color.white);
         bCancel.setBounds(840, 710, 100, 50);
         bCancel.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
                 super.mousePressed(e);
+                bRun.setBackground(Color.white);
                 bRun.setLocation(600, 710);
+            }
+        });
+        addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                super.keyTyped(e);
+                char m = e.getKeyChar();
+                switch (m) {
+                    case 'o':
+                        k.pointsO.add(new Point(x, y));
+                        break;
+                    case 'k':
+                        k.pointsS.add(new Point(x, y));
+                        break;
+                }
             }
         });
 
